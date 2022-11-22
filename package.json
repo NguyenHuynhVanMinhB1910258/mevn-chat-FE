@@ -1,0 +1,34 @@
+{
+  "name": "mevn-chat",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "alias": {
+    "vue": "./node_modules/vue/dist/vue.common.js"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.2.1",
+    "axios": "^1.1.3",
+    "bootstrap": "^4.6.2",
+    "bootstrap-vue": "^2.23.1",
+    "emoji-vue": "^0.2.4",
+    "socket.io-client": "^4.5.3",
+    "socketio": "^1.0.0",
+    "vee-validate": "^4.7.3",
+    "vue": "^3.2.45",
+    "vue-3-socket.io": "^1.0.5",
+    "vue-emoji-picker": "^1.0.3",
+    "vue-ref": "^2.0.0",
+    "vue-router": "^4.1.6",
+    "vue3-emoji-picker": "^1.1.7",
+    "vuemoji-picker": "^0.1.4",
+    "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^3.1.2",
+    "vite": "^3.1.8"
+  }
+}
