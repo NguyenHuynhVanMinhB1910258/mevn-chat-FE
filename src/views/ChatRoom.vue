@@ -33,74 +33,73 @@
 }
 </style>
 <template>
-  <!-- <div class="row">
-    <div class="col-xl-3 col-sm-5" style="width: 25%;  border-right: 1px solid #e5e7eb;">
-      <RoomList></RoomList>
-    </div> -->
-    <div class="col-xl-9 col-sm-7">
-      <div class='row'>
-        <div class="col-12" v-if="room">
-          <div class="row" style="border: 1px solid #e5e7eb;">
-            <div class="row col-11">
-              <img src="/favicon.ico" style=" padding:10px; border-radius: 90px;">
-              <h3 style="margin-top: 10px;">
-                {{ room.room_name }}
-              </h3>
-            </div>
-            <div class="row col-1 justify-content-end"><i class="fa fa-times fa-2x" aria-hidden="true" @click="logout"
-                type="button"></i></div>
-          </div>
+  <div class='row'>
+    <div class="col-12" v-if="room">
+      <div class="row" style="border: 1px solid #e5e7eb;">
+        <div class="row col-11">
+          <img src="/favicon.ico" style="padding: 10px; border-radius: 90px;">
+          <h3 style="margin-top: 10px;" v-if="edit==0">
+            {{ room.room_name }}
+            <i class="fa-solid fa-pen-to-square" style="color: green;" type="button" @click="Edit"></i>
+          </h3>   
+          <form class="form-inline"  @submit="EditNameRoom" v-else>
+            <input type="text" class="form-control" style="margin-top: 5px;" v-model="room.room_name">
+            <i class="fa-solid fa-check" style="margin-left: 10px; color: green;" type="submit" @click="EditNameRoom" ></i>
+          </form>
+        </div>
+        <div class="row col-1 justify-content-end"><i class="fa fa-times fa-2x" aria-hidden="true" @click="logout"
+            type="button"></i></div>
+      </div>
 
-          <div class="panel-body">
-            <div v-for="(item, index) in chats" :key="index">
-              <div class="row" style="margin-left: 0px; margin-right: 0px;">
-                <div class="col-5" v-if="item.nickname !== nickname">
-                  <div v-if="index > 0">
-                    <div class="chat-name" v-if="item.nickname !== chats[subIndex(index)].nickname">{{ item.nickname }}
-                    </div>
-                  </div>
-                  <div class="chat-name" v-else>{{ item.nickname }}</div>
-                  <div class="row justify-content-start chat-message" style="margin-left: 0px; width: max-content;">
-                    {{ item.message }}</div>
+      <div class="panel-body">
+        <div v-for="(item, index) in chats" :key="index">
+          <div class="row" style="margin-left: 0px; margin-right: 0px;">
+            <div class="col-5" v-if="item.nickname !== nickname">
+              <div v-if="index > 0">
+                <div class="chat-name" v-if="item.nickname !== chats[subIndex(index)].nickname">{{ item.nickname }}
                 </div>
               </div>
-              <div class="row justify-content-end" style="margin-left: 0px; margin-right: 0px;"
-                v-if="item.nickname === nickname">
-                <div>
-                  <div v-if="index > 0">
-                    <div class="row justify-content-end chat-name" style="margin-left: 0px; margin-right: 0px;"
-                      v-if="item.nickname !== chats[subIndex(index)].nickname">you</div>
-                  </div>
-                  <div class="row justify-content-end chat-name" style="margin-left: 0px; margin-right: 0px;" v-else>you
-                  </div>
-                  <div class="row justify-content-end chat-message" style="margin-left: 0px; margin-right: 0px;">
-                    {{ item.message }}</div>
-                </div>
+              <div class="chat-name" v-else>{{ item.nickname }}</div>
+              <div class="row justify-content-start chat-message" style="margin-left: 0px; width: max-content;">
+                {{ item.message }}</div>
+            </div>
+          </div>
+          <div class="row justify-content-end" style="margin-left: 0px; margin-right: 0px;"
+            v-if="item.nickname === nickname">
+            <div>
+              <div v-if="index > 0">
+                <div class="row justify-content-end chat-name" style="margin-left: 0px; margin-right: 0px;"
+                  v-if="item.nickname !== chats[subIndex(index)].nickname">you</div>
               </div>
+              <div class="row justify-content-end chat-name" style="margin-left: 0px; margin-right: 0px;" v-else>you
+              </div>
+              <div class="row justify-content-end chat-message" style="margin-left: 0px; margin-right: 0px;">
+                {{ item.message }}</div>
             </div>
           </div>
-          <ul v-if="errors && errors.length">
-            <li v-for="error of errors">
-              {{ error.message }}
-            </li>
-          </ul>
-          <div class="row justify-content-end">
-            <div class="col-lg-4 col-md-8">
-              <VuemojiPicker v-if="isShoswn" @emojiClick="handleEmojiClick" :is-dark="true"
-                style=" position: absolute; bottom: 0px; " />
-            </div>
-          </div>
+        </div>
+      </div>
+      <ul v-if="errors && errors.length">
+        <li v-for="error of errors">
+          {{ error.message }}
+        </li>
+      </ul>
+      <div class="row justify-content-end">
+        <div class="col-lg-4 col-md-8">
+          <VuemojiPicker v-if="isShoswn" @emojiClick="handleEmojiClick"
+            style=" position: absolute; bottom: 0px; " />
+        </div>
+      </div>
 
-          <form class="form-inline" style="margin-top: 10px;" @submit="onSubmit">
-            <div class="input-group col-10">
-              <input type="text " class="form-control" v-model.trim="chat.message" style="border-radius: 50px;">
-              <!-- <EmojiPicker  class="col-12 emoji-input" picker-type="input" @keyup="message" @select="onSelectEmoji" /> -->
-            </div>
+      <form class="form-inline" style="margin-top: 10px;" @submit="onSubmit">
+        <div class="input-group col-10">
+          <input type="text " class="form-control" v-model.trim="chat.message" style="border-radius: 50px;">
+          <!-- <EmojiPicker  class="col-12 emoji-input" picker-type="input" @keyup="message" @select="onSelectEmoji" /> -->
+        </div>
 
-            <i class=" fas fa-smile" style="color: rgb(0, 132, 255);" type="button" @click="isShoswn = !isShoswn"></i>
-            <svg style="margin-left: 10px;" height="20px" viewBox="0 0 24 24" width="20px" type="button"
-              @click="onSubmit">
-              <path d="M16.6915026,12.4744748 L3.50612381,13.2599618 C3.19218622,13.2599618 3.03521743,13.4170592 
+        <i class=" fas fa-smile" style="color: rgb(0, 132, 255);" type="button" @click="isShoswn = !isShoswn"></i>
+        <svg style="margin-left: 10px;" height="20px" viewBox="0 0 24 24" width="20px" type="button" @click="onSubmit">
+          <path d="M16.6915026,12.4744748 L3.50612381,13.2599618 C3.19218622,13.2599618 3.03521743,13.4170592 
             3.03521743,13.5741566 L1.15159189,20.0151496 C0.8376543,20.8006365 
             0.99,21.89 1.77946707,22.52 C2.41,22.99 3.50612381,23.1 4.13399899,22.8429026 
             L21.714504,14.0454487 C22.6563168,13.5741566 23.1272231,12.6315722 
@@ -111,14 +110,11 @@
             L16.6915026,11.5318905 C16.6915026,11.5318905 17.1624089,11.5318905 
             17.1624089,12.0031827 C17.1624089,12.4744748 16.6915026,12.4744748 
             16.6915026,12.4744748 Z" fill="#0084ff">
-              </path>
-            </svg>
-          </form>
-        </div>
-      </div>
+          </path>
+        </svg>
+      </form>
     </div>
-  <!-- </div> -->
-
+  </div>
 </template>
   
 <script>
@@ -139,6 +135,7 @@ export default {
       room: {},
       chats: [],
       errors: [],
+      edit: 0,
       id: this.$route.params.id,
       nickname: this.$route.params.nickname,
       chat: {},
@@ -159,7 +156,11 @@ export default {
     this.socket.on('delete-chat', async function (data) {
       this.chats = await RoomService.getAllChat(this.id)
     }.bind(this))
-
+    this.socket.on('new-name',function(data){
+        console.log(data);
+        this.room.room_name = data.message.room_name
+        // document.querySelector(".panel-body").scrollTop = scrollHeight
+    }.bind(this))
     this.socket.on('new-message', function (data) {
       if (data.message.room === this.$route.params.id) {
         this.chats.push(data.message)
@@ -192,19 +193,16 @@ export default {
     };
   },
   methods: {
-    // async getAllChat(id){
-    //   try{
-    //     this.chats = await RoomService.getAllChat(id);
-    //   }catch(e){
-    //     this.errors.push(e);
-    //   }
-    // },
-    // onInput(event) {
-    //   //event.data contains the value of the textarea
-    // },
-    // clearTextarea(){
-    //   this.$refs.emoji.Sclear()
-    // },
+    async EditNameRoom(evt){
+      evt.preventDefault()
+      await RoomService.update(this.id,this.room).then(response =>{
+          this.socket.emit('edit-room',this.room);
+          this.edit = 0;
+      })
+    },
+    Edit(){
+      this.edit = 1;
+    },
     handleEmojiClick(e) {
       console.log(e);
 
@@ -238,11 +236,19 @@ export default {
       var scrollHeigth = objDiv.scrollHeight;
       objDiv.scrollTop = scrollHeigth;
     },
-    logout() {
-      this.socket.emit('save-message', { room: this.chat.room, nickname: this.chat.nickname, message: this.chat.nickname + ' left this room', created_date: new Date() });
-      this.$router.push({
-        name: 'RoomList'
-      })
+    async logout() {
+      this.chat.room = await this.$route.params.id
+      this.chat.nickname = await this.$route.params.nickname
+      this.chat.message = await this.nickname + ' left this room'
+      await RoomService.createchat(this.chat)
+        .then(response => {
+          this.socket.emit('save-message', response);
+          this.$router.push({
+            name: 'Home'
+          })
+        }).catch(e => {
+          this.errors.push(e)
+        })
     },
 
   },

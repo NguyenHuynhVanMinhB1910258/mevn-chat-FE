@@ -6,27 +6,6 @@
           {{room.room_name}}
           <a href="/">(Room List)</a>
         </h2>
-        <!-- <b-form @submit="onSubmit">
-          <b-form-group id="fieldsetHorizontal"
-                    horizontal
-                    :label-cols="4"
-                    breakpoint="md"
-                    label="Enter Nickname">
-            <b-form-input id="nickname" :state="state" v-model.trim="chat.nickname"></b-form-input>
-          </b-form-group>
-          <b-button type="submit" variant="primary">Join</b-button>
-        </b-form> -->
-        <!-- <form @submit="onSubmit">
-          <div class="form-group"  id="fieldsetHorizontal"
-                    horizontal
-                    :label-cols="4"
-                    breakpoint="md"
-                    label="Enter Nickname">
-              <input type="text" class="form-control" id="nickname" v-model.trim="chat.nickname">
-          </div>
-          <button type="submit" class="btn btn-primary" >Join</button>
-          <button class="btn btn-danger" >Delete</button>
-        </form> -->
         <form>
           <div class="form-group">
             <label >Nickname</label>
@@ -46,12 +25,9 @@
   </template>
     
   <script>
-    // import * as io from 'socket.io-client'
-    // import axios from 'axios'
+  
     import RoomService from "@/service/room.service";
-    // import VueSocketIO from 'vue-3-socket.io'
     import SocketIO from 'socket.io-client'
-    // import ChatService from "@/services/chat.service";
     export default {
       name: 'JoinRoom',
       data () {
@@ -81,9 +57,6 @@
               params: { id: this.$route.params.id, nickname: this.chat.nickname }
             })
           })
-          // .catch(e => {
-          // this.errors.push(e);
-          // })
         }
       },
       created(){

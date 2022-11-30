@@ -1,9 +1,5 @@
 <template>
-  <!-- <div class="row"> -->
-    <!-- <div class="col-xl-3 col-sm-5" style="width: 25%;  border-right: 1px solid #e5e7eb;">
-      <RoomList></RoomList>
-    </div> -->
-    <!-- <div class="col-xl-9 col-sm-7"> -->
+ 
       <div class='row'>
         <div class="row col-12" style="margin-left: 0px; border: 1px solid #e5e7eb;">
           <div class="row col-11">
@@ -41,17 +37,12 @@
         </div>
         <div class="col-2"></div>
       </div>
-    <!-- </div> -->
-  <!-- </div> -->
 
 </template>
   
 <script>
-// import * as io from 'socket.io-client'
-// import axios from 'axios'
 import RoomService from "@/service/room.service";
 import { Form, Field, ErrorMessage } from "vee-validate";
-// import VueSocketIO from 'vue-3-socket.io'
 import RoomList from "../components/RoomList.vue";
 import SocketIO from 'socket.io-client'
 import * as yup from "yup";

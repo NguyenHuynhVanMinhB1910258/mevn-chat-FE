@@ -3,9 +3,9 @@
     <div class="col-xl-3 col-sm-5" style="width: 25%;  border-right: 1px solid #e5e7eb;">
       <RoomList></RoomList>
     </div> -->
-    <div class="col-xl-9 col-sm-7">
+    <!-- <div class="col-xl-9 col-sm-7"> -->
       <div class="row">
-        <div class="row col-12" style="margin-left: 0px; border: 1px solid #e5e7eb;">
+        <div class="row col-12" style="margin-left: 0; border: 1px solid #e5e7eb;">
           <div class="row col-11">
             <h3 style="margin-top: 10px;">
               Add Room
@@ -44,7 +44,7 @@
         </div>
         <div class="col-2"></div>
       </div>
-    </div>
+    <!-- </div> -->
   <!-- </div> -->
 </template>
   

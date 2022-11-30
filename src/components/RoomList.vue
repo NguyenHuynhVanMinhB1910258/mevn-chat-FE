@@ -112,6 +112,10 @@ export default {
             this.rooms = await RoomService.getAll()
             console.log(this.rooms);
         }.bind(this))
+        this.socket.on('new-name', async function (data) {
+            this.rooms = await RoomService.getAll()
+            console.log(this.rooms);
+        }.bind(this))
         this.socket.on('new-room', async function (data) {
             this.rooms.push(data.message);
             console.log(this.rooms);
